@@ -1,0 +1,26 @@
+<?php include "vistas/cabecera.htm"; ?>
+
+<div class="container">
+	</br>
+	<form action="nueva_foto_proceso.php" method="post" enctype="multipart/form-data">
+	<div class="row">
+			<table id="la_tabla" class="table table-striped">
+					<tr><th>Imagen</th><td><input class="form-control" name="archivo" type="file"/></td></tr>
+					<tr><th>Comentario</th><td><textarea name="comentario" rows="4" cols="50" class="form-control"></textarea></td></tr>
+			</table>
+  	</div>
+	</br>
+	
+	</br>
+	<button class="btn btn-outline-primary btn-lg" type="submit">Subir</button>
+	</form>
+</div>
+
+<?php include "vistas/pie.htm"; ?>
+	
+	
+	
+
+
+	
+	
