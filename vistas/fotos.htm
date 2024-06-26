@@ -1,0 +1,31 @@
+<?php include "vistas/cabecera.htm"; ?>
+
+<script language="javascript">
+	function mostrar_foto(num,comentario){
+		document.getElementById("la_foto").innerHTML = '<img src="imgs/'+num+'.jpg" width="600" />';
+		document.getElementById("el_comentario").innerHTML = comentario;
+	}
+</script>
+
+<div class="container">
+
+	<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+	
+		<?php foreach($fotos as $foto){ ?>
+	
+			<input type="radio" class="btn-check" name="btnradio" id="btnradio<?php echo $foto["id"]; ?>" onclick="mostrar_foto(<?php echo $foto["id"]; ?>,'<?php echo $foto["comentario"]; ?>');">
+			<label class="btn btn-outline-primary" for="btnradio<?php echo $foto["id"]; ?>">Foto</label>
+			
+		<?php } ?>
+	
+	</div>
+		
+	</br></br>
+	<p id="la_foto"></p>
+	<h6 id="el_comentario"></h6>
+	
+</div>
+
+<?php include "vistas/pie.htm"; ?>	
+	
+	
