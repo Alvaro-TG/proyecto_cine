@@ -33,18 +33,32 @@
 	
 	
 	function obtener_trailer($titulo) {
-		$apiKey = 'AIzaSyDwy43tsrZO6-RVuu1eDV09dyRyRPUUyGI'; // Reemplaza esto con tu clave API de YouTube
-		$query = urlencode($titulo . ' trailer');
-		$url = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=$query&type=video&key=$apiKey";
-		
-		$response = file_get_contents($url);
-		$data = json_decode($response, true);
-		
-		if (!empty($data['items'])) {
-			return 'https://www.youtube.com/embed/' . $data['items'][0]['id']['videoId'];
-		}
-		return null;
-	}	
+			$apiKey = 'AIzaSyDwy43tsrZO6-RVuu1eDV09dyRyRPUUyGI'; // Reemplaza esto con tu clave API de YouTube
+			$query = urlencode($titulo . ' trailer español'); // Modifica el query para buscar trailers en español
+			$url = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=$query&type=video&key=$apiKey";
+
+			$response = file_get_contents($url);
+			$data = json_decode($response, true);
+
+			if (!empty($data['items'])) {
+				// Busca el primer video que parezca estar en español
+				foreach ($data['items'] as $item) {
+					$title = $item['snippet']['title'];
+					$description = $item['snippet']['description'];
+					
+					// Si el título o la descripción contiene indicaciones de español, devuelve el trailer
+					if (strpos(strtolower($title), 'español') !== false || strpos(strtolower($description), 'español') !== false) {
+						return 'https://www.youtube.com/embed/' . $item['id']['videoId'];
+					}
+				}
+
+				// Si no encuentra ninguno específicamente en español, devuelve el primer resultado
+				return 'https://www.youtube.com/embed/' . $data['items'][0]['id']['videoId'];
+			}
+
+			return null;
+	}
+
 
 
 
